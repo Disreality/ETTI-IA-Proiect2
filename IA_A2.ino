@@ -1,6 +1,5 @@
 #include "WiFi.h"
 #include "HTTPClient.h"
-#include "ArduinoJson.h"
 #include "string.h"
 
 class DateTime{
@@ -192,6 +191,8 @@ String getPayloadByHTTPRequest(){
   }else{
     Serial.println("Cannot make HTTP request as board is not connected.");  
   }
+
+  return "";
 }
 
 DateTime dt;
@@ -201,7 +202,9 @@ void setup() {
   connectToWifi();
   
   String payload = getPayloadByHTTPRequest();
-  dt.force(payload);
+  if(payload != ""){
+    dt.force(payload);
+  }
 }
 
 void loop() {
